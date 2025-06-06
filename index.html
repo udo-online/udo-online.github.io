@@ -2,10 +2,39 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Willkommen bei Udo</title>
+  <title>Willkommen auf meiner Seite</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      color: white;
+      background: url("bonaire5.png") no-repeat center center fixed;
+      background-size: cover;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      backdrop-filter: brightness(0.95);
+    }
+    h1 {
+      font-size: 3em;
+      margin: 0.2em;
+    }
+    p {
+      font-size: 1.5em;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hallo, das ist meine GitHub-Webseite!</h1>
-  <p>Online unter udo-online.github.io – kostenlos gehostet von GitHub Pages.</p>
+  <div class="content">
+    <h1>Willkommen auf Udos Webseite</h1>
+    <p>⛱️ Grüße von Klein-Bonaire!</p>
+  </div>
 </body>
 </html>
