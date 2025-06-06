@@ -14,11 +14,35 @@
       background-attachment: fixed;
     }
 
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* transparente Leiste */
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
     .content {
       text-align: center;
       color: white;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
-      margin-top: 33vh; /* Text vertikal positionieren */
+      margin-top: 33vh;
     }
 
     h1 {
@@ -33,14 +57,24 @@
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       p { font-size: 1em; }
-      .content { margin-top: 25vh; }
+      nav a { margin: 0 10px; font-size: 1em; }
+      .content { margin-top: 28vh; }
     }
   </style>
 </head>
 <body>
+
+  <nav>
+    <a href="#">Start</a>
+    <a href="#">Über mich</a>
+    <a href="#">Kontakt</a>
+    <a href="#">Impressum</a>
+  </nav>
+
   <div class="content">
     <h1>Willkommen auf Udos Webseite</h1>
     <p>🍹 Grüße von ...!</p>
   </div>
+
 </body>
 </html>
