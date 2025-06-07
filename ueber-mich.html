@@ -62,18 +62,19 @@
     }
 
     #startMusicBtn {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      padding: 10px 15px;
-      font-size: 1em;
-      border: none;
-      border-radius: 6px;
-      background-color: #ffcc00;
-      color: black;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      z-index: 9999;
       display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 18px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 2000;
     }
 
     @media (max-width: 600px) {
@@ -101,12 +102,14 @@
   <button id="startMusicBtn">🎵 Musik starten</button>
 
   <div class="content">
+    <h1>🍹 Grüße von ...!</h1>
     <p id="counter">Zähler lädt...</p>
   </div>
 
   <script>
-    // Musiksteuerung
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+      || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
+
     const audio = document.getElementById("bgmusic");
     const btn = document.getElementById("startMusicBtn");
 
@@ -121,7 +124,6 @@
       audio.play().catch(() => {});
     }
 
-    // Zähler
     window.addEventListener("DOMContentLoaded", function() {
       const lastVisit = new Date("2020-01-11T00:00:00");
       const now = new Date();
