@@ -2,76 +2,79 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Über mich</title>
+  <title>Willkommen auf Udos Webseite</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      text-align: center;
-      padding: 2rem;
+      background: url("bonaire5.png") no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
     }
 
-    img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-      margin-bottom: 2rem;
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* transparente Leiste */
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    .content {
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+      margin-top: 49vh;
     }
 
     h1 {
-      margin-bottom: 1.5rem;
-      color: #004080;
+      font-size: 3em;
+      margin-bottom: 0.5em;
     }
 
-    #counter {
-      font-size: 1.7em;
-      color: #222;
-      font-weight: bold;
-    }
-
-    a {
-      position: fixed;
-      top: 15px;
-      left: 20px;
-      text-decoration: none;
-      color: #004080;
-      font-weight: bold;
-      background: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+    p {
+      font-size: 1.5em;
     }
 
     @media (max-width: 600px) {
-      #counter {
-        font-size: 1.2em;
-      }
+      h1 { font-size: 2em; }
+      p { font-size: 1em; }
+      nav a { margin: 0 10px; font-size: 1em; }
+      .content { margin-top: 28vh; }
     }
   </style>
 </head>
 <body>
 
-  <a href="index.html">← Zurück</a>
+  <nav>
+    <a href="#">Start</a>
+    <a href="#">Über mich</a>
+    <a href="#">Kontakt</a>
+    <a href="#">Impressum</a>
+  </nav>
 
-  <h1>Über mich</h1>
-  <img src="strand.jpeg" alt="Udo am Strand">
-  <p id="counter">⏳ Lade Zähler...</p>
-
-  <script>
-    const lastVisit = new Date("2020-01-11T00:00:00");
-    const now = new Date();
-    const diff = now - lastVisit;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const years = Math.floor(days / 365.25);
-    const months = Math.floor((days % 365.25) / 30.44);
-    const remainingDays = Math.floor((days % 365.25) % 30.44);
-
-    document.getElementById("counter").innerText =
-      `Ich war seit ${years} Jahren, ${months} Monaten und ${remainingDays} Tagen nicht mehr dort.`;
-  </script>
+  <div class="content">
+    <h1>Willkommen auf Udos Webseite</h1>
+    <p>🍹 Grüße von Klein-Bonaire!</p>
+  </div>
 
 </body>
 </html>
