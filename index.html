@@ -11,6 +11,7 @@
       text-align: center;
       padding: 2rem;
     }
+
     img {
       max-width: 90%;
       height: auto;
@@ -18,15 +19,18 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.2);
       margin-bottom: 2rem;
     }
+
     h1 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       color: #004080;
     }
+
     #counter {
-      font-size: 1.5em;
-      color: #333;
-      margin-top: 1rem;
+      font-size: 1.7em;
+      color: #222;
+      font-weight: bold;
     }
+
     a {
       position: fixed;
       top: 15px;
@@ -39,6 +43,12 @@
       border-radius: 5px;
       box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
     }
+
+    @media (max-width: 600px) {
+      #counter {
+        font-size: 1.2em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -46,8 +56,7 @@
   <a href="index.html">← Zurück</a>
 
   <h1>Über mich</h1>
-  <img src="IMG_8569.JPG" alt="Udo am Strand">
-  <p>Das letzte Mal war ich auf Bonaire am <strong>11. Januar 2020</strong>.</p>
+  <img src="strand.jpeg" alt="Udo am Strand">
   <p id="counter">⏳ Lade Zähler...</p>
 
   <script>
