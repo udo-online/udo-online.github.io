@@ -2,15 +2,19 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Über mich (Testversion)</title>
+  <title>Über mich</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
+      background: url("strand.jpeg") no-repeat center center fixed;
+      background-size: 80%;
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: fixed;
+      color: white;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
     }
 
@@ -42,17 +46,24 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 100%;
       padding-top: 80px;
     }
 
     h1 {
       font-size: 2.8em;
+      margin: 0.5em 0 0.2em 0;
     }
 
     #counter {
       font-size: 1.6em;
       margin-top: 1em;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      #counter { font-size: 1.1em; }
+      nav a { margin: 0 10px; font-size: 1em; }
     }
   </style>
 </head>
@@ -68,6 +79,7 @@
 
   <audio autoplay loop hidden>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+    Dein Browser unterstützt keine Audio-Wiedergabe.
   </audio>
 
   <div class="content">
@@ -87,7 +99,7 @@
       const remainingDays = Math.floor((days % 365.25) % 30.44);
 
       document.getElementById("counter").innerText =
-        `Ich war seit ${years} Jahren, ${months} Monaten und ${remainingDays} Tagen nicht mehr dort. 😭`;
+        `Ich war seit ${years} Jahren, ${months} Monaten und ${remainingDays} Tagen nicht mehr dort. (╥_╥)`;
     });
   </script>
 
