@@ -44,7 +44,7 @@
     }
 
     .gallery img {
-      width: 220px;
+      width: 200px;
       height: 150px;
       object-fit: cover;
       cursor: pointer;
@@ -105,22 +105,24 @@
     }
 
     #startMusicBtn {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      padding: 10px 15px;
-      font-size: 1em;
-      border: none;
-      border-radius: 6px;
-      background-color: #ffcc00;
-      color: black;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      z-index: 9999;
       display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 18px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 2000;
     }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="index.html">Start</a>
     <a href="ueber-mich.html">Über mich</a>
@@ -131,6 +133,7 @@
 
   <audio id="bgmusic" loop>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+    Dein Browser unterstützt keine Audio-Wiedergabe.
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
@@ -157,8 +160,9 @@
   </div>
 
   <script>
-    // Musik-Start-Knopf für mobile Geräte
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+      || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
+
     const audio = document.getElementById("bgmusic");
     const btn = document.getElementById("startMusicBtn");
 
@@ -173,7 +177,6 @@
       audio.play().catch(() => {});
     }
 
-    // Galerie-Lightbox-Skript
     const images = [
       "bild1.png",
       "bild2.jpeg",
@@ -228,5 +231,6 @@
       }
     });
   </script>
+
 </body>
 </html>
