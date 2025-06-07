@@ -2,15 +2,14 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Galerie – Slideshow</title>
+  <title>Galerie mit Vorschau</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
       background: black;
       color: white;
       font-family: Arial, sans-serif;
-      overflow: hidden;
     }
 
     nav {
@@ -36,59 +35,76 @@
       color: #ffcc00;
     }
 
-    .slideshow {
-      position: absolute;
-      top: 60px;
-      bottom: 0;
-      left: 0;
-      right: 0;
+    .gallery {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
+      padding: 100px 20px 20px;
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid white;
+      border-radius: 8px;
+      transition: transform 0.2s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: none;
       align-items: center;
-      background: black;
-    }
-
-    .slideshow img {
-      max-width: 90%;
-      max-height: 85%;
-      border: 4px solid white;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-      transition: opacity 1s ease;
-      opacity: 1;
-    }
-
-    .controls {
-      position: absolute;
-      bottom: 30px;
-      width: 100%;
-      text-align: center;
+      justify-content: center;
       z-index: 2000;
     }
 
-    .controls button {
-      background: #ffcc00;
-      color: black;
-      border: none;
-      margin: 0 10px;
-      padding: 10px 20px;
-      font-size: 1.1em;
+    .lightbox-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .lightbox img {
+      max-width: 80vw;
+      max-height: 80vh;
+      border: 4px solid white;
+      border-radius: 12px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 10px 15px;
+      font-size: 1em;
       font-weight: bold;
-      border-radius: 6px;
+      background: #ffcc00;
+      border: none;
+      color: black;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    .controls button:hover {
+    .buttons button:hover {
       background: #e6b800;
-    }
-
-    audio {
-      display: none;
     }
   </style>
 </head>
 <body>
-
   <nav>
     <a href="index.html">Start</a>
     <a href="ueber-mich.html">Über mich</a>
@@ -97,18 +113,29 @@
     <a href="galerie.html">Galerie</a>
   </nav>
 
-  <audio autoplay loop>
+  <audio autoplay loop hidden>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="slideshow">
-    <img id="slideshow-image" src="bild1.png" alt="Slideshow">
+  <div class="gallery">
+    <img src="bild1.png" alt="Bild 1" onclick="openLightbox(0)">
+    <img src="bild2.jpeg" alt="Bild 2" onclick="openLightbox(1)">
+    <img src="bild3.jpg" alt="Bild 3" onclick="openLightbox(2)">
+    <img src="bild4.jpeg" alt="Bild 4" onclick="openLightbox(3)">
+    <img src="bild5.jpeg" alt="Bild 5" onclick="openLightbox(4)">
+    <img src="bild6.jpeg" alt="Bild 6" onclick="openLightbox(5)">
   </div>
 
-  <div class="controls">
-    <button onclick="prevImage()">⟨ Zurück</button>
-    <button onclick="toggleSlideshow()" id="toggle-btn">Pause</button>
-    <button onclick="nextImage()">Weiter ⟩</button>
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Großansicht">
+      <div class="buttons">
+        <button onclick="prevImage()">⟨ Zurück</button>
+        <button onclick="toggleSlideshow()" id="toggle-btn">Pause</button>
+        <button onclick="nextImage()">Weiter ⟩</button>
+        <button onclick="closeLightbox()">Schließen</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -120,18 +147,23 @@
       "bild5.jpeg",
       "bild6.jpeg"
     ];
-
     let current = 0;
     let playing = true;
-    const img = document.getElementById("slideshow-image");
+    const imgElement = document.getElementById("lightbox-img");
     const toggleBtn = document.getElementById("toggle-btn");
 
+    function openLightbox(index) {
+      current = index;
+      imgElement.src = images[current];
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
     function showImage(index) {
-      img.style.opacity = 0;
-      setTimeout(() => {
-        img.src = images[index];
-        img.style.opacity = 1;
-      }, 300);
+      imgElement.src = images[index];
     }
 
     function nextImage() {
@@ -150,9 +182,16 @@
     }
 
     setInterval(() => {
-      if (playing) nextImage();
+      if (playing && document.getElementById("lightbox").style.display === "flex") {
+        nextImage();
+      }
     }, 5000);
-  </script>
 
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
 </body>
 </html>
