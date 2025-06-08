@@ -66,6 +66,22 @@
       z-index: 2000;
     }
 
+    #enBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      color: black;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       nav a { margin: 0 10px; font-size: 1em; }
@@ -81,7 +97,6 @@
     <a href="kontakt.html">Kontakt</a>
     <a href="impressum.html">Impressum</a>
     <a href="galerie.html">Galerie</a>
-    <a href="index-en.html">EN</a> <!-- EN-Button hinzugefügt -->
   </nav>
 
   <div class="content">
@@ -94,9 +109,10 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
+  <button id="enBtn" onclick="location.href='index-en.html'">EN</button>
 
   <script>
-    // Musiksteuerung für mobile Geräte
+    // Musiksteuerung
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
@@ -114,7 +130,7 @@
       audio.play().catch(() => {});
     }
 
-    // Automatische Umleitung auf Englisch – nur 1x pro Sitzung
+    // Automatische Weiterleitung auf Englisch, wenn nicht aus DE/AT/CH/LU/LI
     if (!sessionStorage.getItem("languageRedirectDone")) {
       fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
         .then(res => res.json())
