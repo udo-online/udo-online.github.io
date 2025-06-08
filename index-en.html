@@ -66,6 +66,22 @@
       z-index: 2000;
     }
 
+    #deBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      color: black;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       nav a { margin: 0 10px; font-size: 1em; }
@@ -77,9 +93,9 @@
 
   <nav>
     <a href="index-en.html">Home</a>
-    <a href="ueber-mich.html">About me</a>
+    <a href="ueber-mich.html">About</a>
     <a href="kontakt.html">Contact</a>
-    <a href="impressum.html">Imprint</a>
+    <a href="impressum.html">Legal</a>
     <a href="galerie.html">Gallery</a>
   </nav>
 
@@ -92,10 +108,11 @@
     Your browser does not support audio playback.
   </audio>
 
-  <button id="startMusicBtn">🎵 Play Music</button>
+  <button id="startMusicBtn">🎵 Start music</button>
+  <button id="deBtn" onclick="location.href='index.html'">DE</button>
 
   <script>
-    const isMobile = /iPhone|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
