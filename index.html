@@ -66,10 +66,26 @@
       z-index: 2000;
     }
 
+    #languageBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffcc00;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      padding: 10px 15px;
+      cursor: pointer;
+      z-index: 2000;
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       nav a { margin: 0 10px; font-size: 1em; }
       .content { margin-top: 28vh; }
+      #languageBtn { bottom: 80px; }
     }
   </style>
 </head>
@@ -93,11 +109,12 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
+  <button id="languageBtn" onclick="window.location.href='index-en.html'">English</button>
 
   <script>
-    const isMobile = /iPhone|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    // Musik-Button für mobile Geräte
+    const isMobile = /iPhone|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
-
     const audio = document.getElementById("bgmusic");
     const btn = document.getElementById("startMusicBtn");
 
@@ -112,16 +129,21 @@
       audio.play().catch(() => {});
     }
 
-    // IP-Erkennung und Weiterleitung
-    fetch("https://ipinfo.io/json?token=ee9cea559afaa4")
-      .then(response => response.json())
-      .then(data => {
-        const country = data.country;
-        const deutschLaender = ["DE", "AT", "CH", "LU", "LI"];
-        if (!deutschLaender.includes(country)) {
-          window.location.href = "index-en.html";
-        }
-      });
+    // Automatische Sprachweiterleitung nur beim ersten Besuch
+    if (!sessionStorage.getItem("languageChecked")) {
+      fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
+        .then(res => res.json())
+        .then(data => {
+          const country = data.country;
+          if (!["DE", "AT", "CH", "LU", "LI"].includes(country)) {
+            window.location.href = "index-en.html";
+          }
+        })
+        .catch(console.error)
+        .finally(() => {
+          sessionStorage.setItem("languageChecked", "true");
+        });
+    }
   </script>
 
 </body>
