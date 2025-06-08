@@ -109,10 +109,12 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
-  <button id="enBtn" onclick="location.href='index-en.html'">EN</button>
+
+  <!-- EN-Button mit sessionStorage-Schutz -->
+  <button id="enBtn" onclick="sessionStorage.setItem('languageRedirectDone', 'true'); location.href='index-en.html'">EN</button>
 
   <script>
-    // Musiksteuerung
+    // Musiksteuerung für mobile Geräte
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
@@ -130,7 +132,7 @@
       audio.play().catch(() => {});
     }
 
-    // Automatische Weiterleitung auf Englisch, wenn nicht aus DE/AT/CH/LU/LI
+    // Automatische Weiterleitung (einmal pro Sitzung)
     if (!sessionStorage.getItem("languageRedirectDone")) {
       fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
         .then(res => res.json())
