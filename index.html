@@ -66,26 +66,10 @@
       z-index: 2000;
     }
 
-    #languageBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ffcc00;
-      color: black;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1em;
-      padding: 10px 15px;
-      cursor: pointer;
-      z-index: 2000;
-    }
-
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       nav a { margin: 0 10px; font-size: 1em; }
       .content { margin-top: 28vh; }
-      #languageBtn { bottom: 80px; }
     }
   </style>
 </head>
@@ -97,6 +81,7 @@
     <a href="kontakt.html">Kontakt</a>
     <a href="impressum.html">Impressum</a>
     <a href="galerie.html">Galerie</a>
+    <a href="index-en.html">EN</a>
   </nav>
 
   <div class="content">
@@ -109,12 +94,12 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
-  <button id="languageBtn" onclick="window.location.href='index-en.html'">English</button>
 
   <script>
-    // Musik-Button für mobile Geräte
+    // Musiksteuerung je nach Gerät
     const isMobile = /iPhone|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
+
     const audio = document.getElementById("bgmusic");
     const btn = document.getElementById("startMusicBtn");
 
@@ -129,20 +114,18 @@
       audio.play().catch(() => {});
     }
 
-    // Automatische Sprachweiterleitung nur beim ersten Besuch
-    if (!sessionStorage.getItem("languageChecked")) {
+    // Automatische Umleitung nur einmal pro Sitzung
+    if (!sessionStorage.getItem("languageRedirectDone")) {
       fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
         .then(res => res.json())
         .then(data => {
           const country = data.country;
           if (!["DE", "AT", "CH", "LU", "LI"].includes(country)) {
+            sessionStorage.setItem("languageRedirectDone", "true");
             window.location.href = "index-en.html";
           }
         })
-        .catch(console.error)
-        .finally(() => {
-          sessionStorage.setItem("languageChecked", "true");
-        });
+        .catch(console.error);
     }
   </script>
 
