@@ -111,6 +111,17 @@
       audio.autoplay = true;
       audio.play().catch(() => {});
     }
+
+    // IP-Erkennung und Weiterleitung
+    fetch("https://ipinfo.io/json?token=ee9cea559afaa4")
+      .then(response => response.json())
+      .then(data => {
+        const country = data.country;
+        const deutschLaender = ["DE", "AT", "CH", "LU", "LI"];
+        if (!deutschLaender.includes(country)) {
+          window.location.href = "index-en.html";
+        }
+      });
   </script>
 
 </body>
