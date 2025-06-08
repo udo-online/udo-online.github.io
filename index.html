@@ -81,7 +81,7 @@
     <a href="kontakt.html">Kontakt</a>
     <a href="impressum.html">Impressum</a>
     <a href="galerie.html">Galerie</a>
-    <a href="index-en.html">EN</a>
+    <a href="index-en.html">EN</a> <!-- EN-Button hinzugefügt -->
   </nav>
 
   <div class="content">
@@ -96,8 +96,8 @@
   <button id="startMusicBtn">🎵 Musik starten</button>
 
   <script>
-    // Musiksteuerung je nach Gerät
-    const isMobile = /iPhone|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    // Musiksteuerung für mobile Geräte
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
@@ -114,18 +114,19 @@
       audio.play().catch(() => {});
     }
 
-    // Automatische Umleitung nur einmal pro Sitzung
+    // Automatische Umleitung auf Englisch – nur 1x pro Sitzung
     if (!sessionStorage.getItem("languageRedirectDone")) {
       fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
         .then(res => res.json())
         .then(data => {
           const country = data.country;
-          if (!["DE", "AT", "CH", "LU", "LI"].includes(country)) {
+          const germanCountries = ["DE", "AT", "CH", "LU", "LI"];
+          if (!germanCountries.includes(country)) {
             sessionStorage.setItem("languageRedirectDone", "true");
             window.location.href = "index-en.html";
           }
         })
-        .catch(console.error);
+        .catch(err => console.error("Länderprüfung fehlgeschlagen:", err));
     }
   </script>
 
