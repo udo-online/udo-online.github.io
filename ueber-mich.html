@@ -48,7 +48,6 @@
       align-items: center;
       height: 100%;
       padding-top: 80px;
-      text-align: center;
     }
 
     h1 {
@@ -61,20 +60,37 @@
       margin-top: 1em;
     }
 
-    #startMusicBtn {
-      display: none;
+    #startMusicBtn, #muteBtn, #enBtn {
       position: fixed;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 18px;
-      background-color: #ffcc00;
+      padding: 10px 16px;
       border: none;
       border-radius: 8px;
       font-weight: bold;
       font-size: 1em;
       cursor: pointer;
       z-index: 2000;
+    }
+
+    #startMusicBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffcc00;
+      display: none;
+    }
+
+    #muteBtn {
+      left: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #enBtn {
+      right: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }
 
     @media (max-width: 600px) {
@@ -94,34 +110,42 @@
     <a href="galerie.html">Galerie</a>
   </nav>
 
-  <audio id="bgmusic" loop>
-    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
-    Dein Browser unterstützt keine Audio-Wiedergabe.
-  </audio>
-
-  <button id="startMusicBtn">🎵 Musik starten</button>
-
   <div class="content">
+    <h1>🍹 Grüße von ...!</h1>
     <p id="counter">Zähler lädt...</p>
   </div>
 
+  <audio id="bgmusic" loop>
+    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="startMusicBtn">🎵 Musik starten</button>
+  <button id="muteBtn">🔇</button>
+  <button id="enBtn" onclick="location.href='about-me.html'">EN</button>
+
   <script>
-    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
-    const btn = document.getElementById("startMusicBtn");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
 
     if (isMobile) {
-      btn.style.display = "block";
-      btn.addEventListener("click", () => {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
         audio.play();
-        btn.style.display = "none";
+        startBtn.style.display = "none";
       });
     } else {
       audio.autoplay = true;
       audio.play().catch(() => {});
     }
+
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
+    });
 
     window.addEventListener("DOMContentLoaded", function() {
       const lastVisit = new Date("2020-01-11T00:00:00");
