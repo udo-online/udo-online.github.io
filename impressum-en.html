@@ -4,22 +4,21 @@
   <meta charset="UTF-8">
   <title>Imprint</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
       background: url("2.webp") no-repeat center center fixed;
       background-size: cover;
-      background-attachment: fixed;
+      font-family: Arial, sans-serif;
       color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
     }
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.6);
       padding: 15px 0;
       text-align: center;
       z-index: 1000;
@@ -27,7 +26,7 @@
 
     nav a {
       color: white;
-      margin: 0 20px;
+      margin: 0 25px;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
@@ -38,22 +37,22 @@
       color: #ffcc00;
     }
 
-    .content {
-      max-width: 900px;
-      margin: 140px auto 0;
-      padding: 30px;
-      background-color: rgba(0, 0, 0, 0.5);
+    .container {
+      max-width: 700px;
+      margin: 140px auto 60px;
+      background-color: rgba(0, 0, 0, 0.55);
+      padding: 30px 40px;
       border-radius: 15px;
-      font-size: 1.3em;
-      line-height: 1.8em;
-      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      font-size: 1.1em;
+      line-height: 1.6em;
     }
 
     h1 {
       text-align: center;
-      font-size: 2.2em;
-      margin-bottom: 20px;
+      font-size: 2em;
       color: #ffcc00;
+      margin-bottom: 20px;
     }
 
     #startMusicBtn, #muteBtn, #deBtn {
@@ -74,7 +73,6 @@
     #startMusicBtn {
       left: 50%;
       transform: translateX(-50%);
-      display: none;
     }
 
     #muteBtn {
@@ -87,7 +85,7 @@
 
     @media (max-width: 600px) {
       nav a { margin: 0 10px; font-size: 1em; }
-      .content { font-size: 1.05em; padding: 20px; margin-top: 100px; }
+      .container { padding: 20px; font-size: 1em; }
     }
   </style>
 </head>
@@ -101,23 +99,23 @@
     <a href="galerie-en.html">Gallery</a>
   </nav>
 
-  <div class="content">
+  <audio id="bgmusic" loop>
+    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
     <h1>インプレッスム</h1>
-    <p>Site Manager: ウド・ミュラー株式会社</p>
-    <p>Address: 〒123-4567 Germany, Hamburg, Kartellstraße 1089F</p>
-    <p>Phone: ０８０ – ウド・デアーベスト</p>
-    <p>Email: udono.email@うそ.de</p>
+    <p><strong>Site Manager:</strong> ウド・ミュラー株式会社</p>
+    <p><strong>Address:</strong> 〒123-4567 Germany, Hamburg, Kartellstraße 1089F</p>
+    <p><strong>Phone:</strong> ０８０ – ウド・デアーベスト</p>
+    <p><strong>Email:</strong> udono.email@うそ.de</p>
     <br>
-    <p>Business hours: Monday to Thursday (maybe)</p>
+    <p><strong>Business hours:</strong> Monday to Thursday (maybe)</p>
     <p>If you have questions about the contents, please ask the duck directly.</p>
     <br>
     <p><strong>Disclaimer:</strong> This page has no legal meaning whatsoever.</p>
     <p>This “インプレッスム” is not the Japanese translation of the German word “Impressum”.</p>
   </div>
-
-  <audio id="bgmusic" loop>
-    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
-  </audio>
 
   <button id="startMusicBtn">🎵 Start Music</button>
   <button id="muteBtn">🔇</button>
