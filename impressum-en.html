@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Imprint</title>
+  <title>Impressum</title>
   <style>
     html, body {
       margin: 0;
@@ -40,23 +40,16 @@
     }
 
     .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      padding-top: 80px;
+      padding-top: 120px;
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.8em;
     }
 
     h1 {
-      font-size: 2.8em;
-      margin: 0.5em 0 0.2em 0;
-    }
-
-    p {
-      font-size: 1.3em;
-      text-align: center;
-      max-width: 80%;
+      font-size: 2.5em;
+      color: #ffcc00;
     }
 
     #startMusicBtn, #muteBtn, #deBtn {
@@ -70,7 +63,7 @@
       font-size: 1em;
       color: black;
       cursor: pointer;
-      z-index: 2000;
+      z-index: 3000;
       box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }
 
@@ -87,16 +80,9 @@
     #deBtn {
       right: 20px;
     }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2em; }
-      p { font-size: 1em; }
-      nav a { margin: 0 10px; font-size: 1em; }
-    }
   </style>
 </head>
 <body>
-
   <nav>
     <a href="index-en.html">Home</a>
     <a href="ueber-mich-en.html">About Me</a>
@@ -114,8 +100,17 @@
   <button id="deBtn" onclick="location.href='impressum.html'">DE</button>
 
   <div class="content">
-    <h1>Imprint</h1>
-    <p>アメフト光の中で時折ふわふわ飛んでるスシネコが、無限の竹林に突入しようとしているポニョ忍者と一緒にピクニックしながらカラオケしてます。全部夢かもね？ 🍣🎌🌀</p>
+    <h1>インプレスム</h1>
+    <p>管理責任者: ウド・ミュラー株式会社</p>
+    <p>所在地: 〒123-4567 ドイツ連邦共和国 ハンブルク市 カルテル通り1089階</p>
+    <p>電話番号: ０８０－ウド・デアーベスト</p>
+    <p>メール: udono.email@うそ.de</p>
+    <br>
+    <p>営業時間: 月曜日から木曜日まで（たぶん）</p>
+    <p>記載内容についてのご質問は、カモメに<strong>直接</strong>お伝えください。</p>
+    <br>
+    <p><strong>注意事項:</strong> このページは法的な意味をまったく持ちません。</p>
+    <p>この「インプレスム」は、インプレッサのドイツ語翻訳ではありません。</p>
   </div>
 
   <script>
@@ -142,6 +137,5 @@
       muteBtn.textContent = audio.muted ? "🔈" : "🔇";
     });
   </script>
-
 </body>
 </html>
