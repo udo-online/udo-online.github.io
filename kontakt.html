@@ -9,10 +9,8 @@
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
-      background: url("4.webp") no-repeat center center fixed;
-      background-size: cover;
+      background: #222;
       color: white;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
 
     nav {
@@ -31,6 +29,7 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
+      transition: color 0.3s;
     }
 
     nav a:hover {
@@ -38,28 +37,62 @@
     }
 
     .content {
-      max-width: 600px;
-      margin: 120px auto;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 2rem;
-      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding-top: 100px;
+      text-align: center;
     }
 
     h1 {
-      font-size: 2.4em;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #00c3ff;
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
     }
 
     p {
-      font-size: 1.2em;
-      line-height: 1.8em;
+      font-size: 1.3em;
+      max-width: 600px;
     }
 
-    a.email {
-      color: #00ffff;
-      text-decoration: underline;
+    #startMusicBtn, #muteBtn, #enBtn {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 2000;
+    }
+
+    #startMusicBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffcc00;
+      display: none;
+    }
+
+    #muteBtn {
+      left: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #enBtn {
+      right: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      p { font-size: 1em; padding: 0 20px; }
+      nav a { margin: 0 10px; font-size: 1em; }
     }
   </style>
 </head>
@@ -75,11 +108,42 @@
 
   <div class="content">
     <h1>Kontakt</h1>
-    <p>Du möchtest mir schreiben, ein Feedback geben oder einfach nur „Hallo“ sagen?</p>
-    <p>Dann schick mir eine Nachricht an:<br>
-    <a href="mailto:news24.um@gmail.com" class="email">news24.um@gmail.com</a></p>
-    <p>Oder klopf dreimal auf Deinen Router und sag „Udo“ – vielleicht klappt's. 😉</p>
+    <p>Wenn Du mit mir in Kontakt treten möchtest, schreib mir einfach eine E-Mail an:<br><br>
+    <strong>udo@example.com</strong></p>
   </div>
+
+  <audio id="bgmusic" loop>
+    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="startMusicBtn">🎵 Musik starten</button>
+  <button id="muteBtn">🔇</button>
+  <button id="enBtn" onclick="location.href='contact.html'">EN</button>
+
+  <script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
+
+    const audio = document.getElementById("bgmusic");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
+
+    if (isMobile) {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
+        audio.play();
+        startBtn.style.display = "none";
+      });
+    } else {
+      audio.autoplay = true;
+      audio.play().catch(() => {});
+    }
+
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
+    });
+  </script>
 
 </body>
 </html>
