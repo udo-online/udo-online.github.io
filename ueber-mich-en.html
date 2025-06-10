@@ -60,20 +60,33 @@
       margin-top: 1em;
     }
 
-    #startMusicBtn {
-      display: none;
+    #startMusicBtn, #muteBtn, #deBtn {
       position: fixed;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 18px;
+      padding: 10px 16px;
       background-color: #ffcc00;
       border: none;
       border-radius: 8px;
       font-weight: bold;
       font-size: 1em;
+      color: black;
       cursor: pointer;
       z-index: 2000;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #startMusicBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+    }
+
+    #muteBtn {
+      left: 20px;
+    }
+
+    #deBtn {
+      right: 20px;
     }
 
     @media (max-width: 600px) {
@@ -98,42 +111,47 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Start Music</button>
+  <button id="muteBtn">🔇</button>
+  <button id="deBtn" onclick="location.href='ueber-mich.html'">DE</button>
 
   <div class="content">
     <p id="counter">Loading counter...</p>
   </div>
 
   <script>
+    const lastVisit = new Date("2020-01-11T00:00:00");
+    const now = new Date();
+    const diff = now - lastVisit;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const years = Math.floor(days / 365.25);
+    const months = Math.floor((days % 365.25) / 30.44);
+    const remainingDays = Math.floor((days % 365.25) % 30.44);
+
+    document.getElementById("counter").innerText =
+      `I haven't been there for ${years} years, ${months} months and ${remainingDays} days. 😥`;
+
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
-    const btn = document.getElementById("startMusicBtn");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
 
     if (isMobile) {
-      btn.style.display = "block";
-      btn.addEventListener("click", () => {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
         audio.play();
-        btn.style.display = "none";
+        startBtn.style.display = "none";
       });
     } else {
       audio.autoplay = true;
       audio.play().catch(() => {});
     }
 
-    // English counter
-    window.addEventListener("DOMContentLoaded", function() {
-      const lastVisit = new Date("2020-01-11T00:00:00");
-      const now = new Date();
-      const diff = now - lastVisit;
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const years = Math.floor(days / 365.25);
-      const months = Math.floor((days % 365.25) / 30.44);
-      const remainingDays = Math.floor((days % 365.25) % 30.44);
-
-      document.getElementById("counter").innerText =
-        `I haven't been there for ${years} years, ${months} months and ${remainingDays} days. 😥`;
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
     });
   </script>
 
