@@ -50,9 +50,26 @@
       margin-bottom: 0.5em;
     }
 
-    #startMusicBtn, #muteMusicBtn, #deBtn {
+    #startMusicBtn {
+      display: none;
       position: fixed;
       bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 18px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 2000;
+    }
+
+    #muteBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
       padding: 10px 16px;
       background-color: #ffcc00;
       border: none;
@@ -65,17 +82,20 @@
       box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }
 
-    #startMusicBtn {
-      left: 20px;
-      display: none;
-    }
-
-    #muteMusicBtn {
-      left: 110px;
-    }
-
     #deBtn {
+      position: fixed;
+      bottom: 20px;
       right: 20px;
+      padding: 10px 16px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      color: black;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }
 
     @media (max-width: 600px) {
@@ -91,7 +111,7 @@
     <a href="index-en.html">Home</a>
     <a href="ueber-mich-en.html">About Me</a>
     <a href="kontakt-en.html">Contact</a>
-    <a href="impressum-en.html">Legal Notice</a>
+    <a href="impressum-en.html">Imprint</a>
     <a href="galerie-en.html">Gallery</a>
   </nav>
 
@@ -105,7 +125,7 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Start Music</button>
-  <button id="muteMusicBtn">🔇 Mute</button>
+  <button id="muteBtn">🔇</button>
   <button id="deBtn" onclick="location.href='index.html'">DE</button>
 
   <script>
@@ -114,7 +134,7 @@
 
     const audio = document.getElementById("bgmusic");
     const startBtn = document.getElementById("startMusicBtn");
-    const muteBtn = document.getElementById("muteMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
 
     if (isMobile) {
       startBtn.style.display = "block";
@@ -128,13 +148,8 @@
     }
 
     muteBtn.addEventListener("click", () => {
-      if (audio.muted) {
-        audio.muted = false;
-        muteBtn.textContent = "🔇 Mute";
-      } else {
-        audio.muted = true;
-        muteBtn.textContent = "🔊 Unmute";
-      }
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
     });
   </script>
 
