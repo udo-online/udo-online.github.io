@@ -19,7 +19,6 @@
       top: 0;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.5);
-      color: white;
       padding: 10px 0;
       text-align: center;
       z-index: 1000;
@@ -152,20 +151,26 @@
       muteBtn.textContent = audio.muted ? "🔈" : "🔇";
     });
 
-    // Automatische Weiterleitung auf Englisch, wenn nicht aus DE/AT/CH/LU/LI
-    if (!sessionStorage.getItem("languageRedirectDone")) {
-      fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
-        .then(res => res.json())
-        .then(data => {
-          const country = data.country;
-          const germanCountries = ["DE", "AT", "CH", "LU", "LI"];
-          if (!germanCountries.includes(country)) {
-            sessionStorage.setItem("languageRedirectDone", "true");
-            window.location.href = "index-en.html";
-          }
-        })
-        .catch(err => console.error("Länderprüfung fehlgeschlagen:", err));
+    // Automatische Sprachumleitung (einmal pro Sitzung)
+    async function handleLangRedirect() {
+      if (sessionStorage.getItem("langRedirectDone")) return;
+
+      try {
+        const resp = await fetch('https://ipinfo.io/json?token=ee9cea559afaa4');
+        const data = await resp.json();
+        const country = data.country;
+        const germanCountries = ["DE", "AT", "CH", "LU", "LI"];
+
+        sessionStorage.setItem("langRedirectDone", "true");
+        if (!germanCountries.includes(country)) {
+          window.location.href = "index-en.html";
+        }
+      } catch (e) {
+        console.error("Geolocation-Fehler:", e);
+      }
     }
+
+    handleLangRedirect();
   </script>
 
 </body>
