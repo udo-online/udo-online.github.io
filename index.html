@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="DE">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <title>Willkommen auf Udos Webseite</title>
@@ -66,6 +66,22 @@
       z-index: 2000;
     }
 
+    #muteBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px 16px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      color: black;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
     #enBtn {
       position: fixed;
       bottom: 20px;
@@ -109,30 +125,34 @@
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
-
-  <!-- EN-Button mit sessionStorage-Schutz -->
-  <button id="enBtn" onclick="sessionStorage.setItem('languageRedirectDone', 'true'); location.href='index-en.html'">EN</button>
+  <button id="muteBtn">🔇</button>
+  <button id="enBtn" onclick="location.href='index-en.html'">EN</button>
 
   <script>
-    // Musiksteuerung für mobile Geräte
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
-    const btn = document.getElementById("startMusicBtn");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
 
     if (isMobile) {
-      btn.style.display = "block";
-      btn.addEventListener("click", () => {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
         audio.play();
-        btn.style.display = "none";
+        startBtn.style.display = "none";
       });
     } else {
       audio.autoplay = true;
       audio.play().catch(() => {});
     }
 
-    // Automatische Weiterleitung (einmal pro Sitzung)
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
+    });
+
+    // Automatische Weiterleitung auf Englisch, wenn nicht aus DE/AT/CH/LU/LI
     if (!sessionStorage.getItem("languageRedirectDone")) {
       fetch('https://ipinfo.io/json?token=ee9cea559afaa4')
         .then(res => res.json())
