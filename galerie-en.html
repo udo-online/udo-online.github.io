@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px 0;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 25px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 100px 20px 20px;
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid white;
+      border-radius: 8px;
+      transition: transform 0.2s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .lightbox-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .lightbox img {
+      max-width: 80vw;
+      max-height: 80vh;
+      border: 4px solid white;
+      border-radius: 12px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 10px 15px;
+      font-size: 1em;
+      font-weight: bold;
+      background: #ffcc00;
+      border: none;
+      color: black;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .buttons button:hover {
+      background: #e6b800;
+    }
+
+    #startMusicBtn, #muteBtn, #deBtn {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px 16px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      color: black;
+      cursor: pointer;
+      z-index: 3000;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #startMusicBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+    }
+
+    #muteBtn {
+      left: 20px;
+    }
+
+    #deBtn {
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index-en.html">Home</a>
+    <a href="ueber-mich-en.html">About Me</a>
+    <a href="kontakt-en.html">Contact</a>
+    <a href="impressum-en.html">Imprint</a>
+    <a href="galerie-en.html">Gallery</a>
+  </nav>
+
+  <audio id="bgmusic" loop>
+    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="startMusicBtn">🎵 Start Music</button>
+  <button id="muteBtn">🔇</button>
+  <button id="deBtn" onclick="location.href='galerie.html'">DE</button>
+
+  <div class="gallery">
+    <img src="bild1.png" alt="Image 1" onclick="openLightbox(0)">
+    <img src="bild2.jpeg" alt="Image 2" onclick="openLightbox(1)">
+    <img src="bild3.jpg" alt="Image 3" onclick="openLightbox(2)">
+    <img src="bild4.jpeg" alt="Image 4" onclick="openLightbox(3)">
+    <img src="bild5.jpeg" alt="Image 5" onclick="openLightbox(4)">
+    <img src="bild6.jpeg" alt="Image 6" onclick="openLightbox(5)">
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Fullscreen Image">
+      <div class="buttons">
+        <button onclick="prevImage()">⟨ Back</button>
+        <button onclick="toggleSlideshow()" id="toggle-btn">Pause</button>
+        <button onclick="nextImage()">Next ⟩</button>
+        <button onclick="closeLightbox()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
+
+    const audio = document.getElementById("bgmusic");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
+
+    if (isMobile) {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
+        audio.play();
+        startBtn.style.display = "none";
+      });
+    } else {
+      audio.autoplay = true;
+      audio.play().catch(() => {});
+    }
+
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
+    });
+
+    const images = [
+      "bild1.png",
+      "bild2.jpeg",
+      "bild3.jpg",
+      "bild4.jpeg",
+      "bild5.jpeg",
+      "bild6.jpeg"
+    ];
+    let current = 0;
+    let playing = true;
+    const imgElement = document.getElementById("lightbox-img");
+    const toggleBtn = document.getElementById("toggle-btn");
+
+    function openLightbox(index) {
+      current = index;
+      imgElement.src = images[current];
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    function showImage(index) {
+      imgElement.src = images[index];
+    }
+
+    function nextImage() {
+      current = (current + 1) % images.length;
+      showImage(current);
+    }
+
+    function prevImage() {
+      current = (current - 1 + images.length) % images.length;
+      showImage(current);
+    }
+
+    function toggleSlideshow() {
+      playing = !playing;
+      toggleBtn.textContent = playing ? "Pause" : "Start";
+    }
+
+    setInterval(() => {
+      if (playing && document.getElementById("lightbox").style.display === "flex") {
+        nextImage();
+      }
+    }, 5000);
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
