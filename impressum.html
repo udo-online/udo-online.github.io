@@ -7,19 +7,16 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: "Arial", sans-serif;
-      background: url("2.webp") no-repeat center center fixed;
-      background-size: cover;
+      font-family: Arial, sans-serif;
+      background: #222;
       color: white;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.6);
       padding: 15px 0;
       text-align: center;
       z-index: 1000;
@@ -31,6 +28,7 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
+      transition: color 0.3s;
     }
 
     nav a:hover {
@@ -38,23 +36,55 @@
     }
 
     .content {
+      padding: 100px 30px 40px;
       max-width: 800px;
-      margin: 120px auto;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 2rem;
-      border-radius: 12px;
+      margin: auto;
+      line-height: 1.6;
     }
 
     h1 {
-      font-size: 2.4em;
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
       text-align: center;
-      margin-bottom: 1.5rem;
-      color: #ffd700;
     }
 
-    p {
-      font-size: 1.2em;
-      line-height: 1.8em;
+    #startMusicBtn, #muteBtn, #enBtn {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 2000;
+    }
+
+    #startMusicBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffcc00;
+      display: none;
+    }
+
+    #muteBtn {
+      left: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #enBtn {
+      right: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      nav a { margin: 0 10px; font-size: 1em; }
+      .content { padding-top: 80px; font-size: 0.95em; }
     }
   </style>
 </head>
@@ -69,20 +99,60 @@
   </nav>
 
   <div class="content">
-    <h1>インプレスム</h1>
-    <p>
-      管理責任者: ウド・ミュラー株式会社<br>
-      所在地: 〒123-4567 ドイツ連邦共和国 ハンブルク市 カルテル通り1089階<br>
-      電話番号: ０８０−ウド−デア−ベスト<br>
-      メール: udono.email@うそ.de<br><br>
+    <h1>Impressum</h1>
+    <p><strong>Angaben gemäß § 5 TMG:</strong><br>
+    Udo Müller<br>
+    Musterstraße 123<br>
+    12345 Henstedt-Ulzburg<br><br>
 
-      営業時間: 月曜日から木曜日まで (たぶん) <br>
-      記載内容についてのご質問は、カモメに直接お伝えください。<br><br>
+    <strong>Kontakt:</strong><br>
+    Telefon: 01234 / 567890<br>
+    E-Mail: udo@example.com<br><br>
 
-      注意事項：このページは法的な意味をまったく持ちません。<br>
-      この「インプレスム」は、インプレッサのドイツ語翻訳ではありません。<br>
+    <strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+    Udo Müller<br>
+    Musterstraße 123<br>
+    12345 Henstedt-Ulzburg<br><br>
+
+    <strong>Haftung für Inhalte</strong><br>
+    Als Diensteanbieter bin ich gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG bin ich als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen...<br><br>
+
+    (weitere Abschnitte kannst Du beliebig ergänzen)
     </p>
   </div>
+
+  <audio id="bgmusic" loop>
+    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="startMusicBtn">🎵 Musik starten</button>
+  <button id="muteBtn">🔇</button>
+  <button id="enBtn" onclick="location.href='impressum-en.html'">EN</button>
+
+  <script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
+
+    const audio = document.getElementById("bgmusic");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
+
+    if (isMobile) {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
+        audio.play();
+        startBtn.style.display = "none";
+      });
+    } else {
+      audio.autoplay = true;
+      audio.play().catch(() => {});
+    }
+
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
+    });
+  </script>
 
 </body>
 </html>
