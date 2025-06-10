@@ -20,7 +20,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.5);
       padding: 15px 0;
       text-align: center;
       z-index: 1000;
@@ -28,7 +28,7 @@
 
     nav a {
       color: white;
-      margin: 0 25px;
+      margin: 0 20px;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
@@ -40,23 +40,20 @@
     }
 
     .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      padding-top: 80px;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin: 0.5em 0 0.2em 0;
-    }
-
-    p {
-      font-size: 1.3em;
+      max-width: 800px;
+      margin: 140px auto 0;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
       text-align: center;
-      max-width: 80%;
+      font-size: 1.4em;
+      line-height: 1.8em;
+    }
+
+    .content a.mail {
+      color: #00ffff;
+      font-weight: bold;
+      text-decoration: underline;
     }
 
     #startMusicBtn, #muteBtn, #deBtn {
@@ -89,9 +86,8 @@
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2em; }
-      p { font-size: 1em; }
       nav a { margin: 0 10px; font-size: 1em; }
+      .content { font-size: 1.1em; margin-top: 100px; }
     }
   </style>
 </head>
@@ -105,6 +101,14 @@
     <a href="galerie-en.html">Gallery</a>
   </nav>
 
+  <div class="content">
+    <h1>Contact</h1>
+    <p>Would you like to send me a message, give feedback or just say “Hi”?</p>
+    <p>Then send me an email at:</p>
+    <p><a class="mail" href="mailto:kontakt@udo-online.de">kontakt@udo-online.de</a></p>
+    <p>Or knock three times on your router and say “Udo” – maybe it’ll work. 😊</p>
+  </div>
+
   <audio id="bgmusic" loop>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
   </audio>
@@ -112,13 +116,6 @@
   <button id="startMusicBtn">🎵 Start Music</button>
   <button id="muteBtn">🔇</button>
   <button id="deBtn" onclick="location.href='kontakt.html'">DE</button>
-
-  <div class="content">
-    <h1>Contact</h1>
-    <p>Would you like to send me a message, give feedback or just say "Hi"?</p>
-    <p>Then send me an email at:<br><a href="mailto:news24.um@gmail.com" style="color: #00ffff; text-decoration: underline;">news24.um@gmail.com</a></p>
-    <p>Or knock three times on your router and say "Udo" – maybe it’ll work. 😊</p>
-  </div>
 
   <script>
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
