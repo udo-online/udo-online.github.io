@@ -39,14 +39,13 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 100px 20px 20px;
+      padding: 100px 20px 60px;
       gap: 15px;
     }
 
     .gallery img {
       width: 200px;
-      height: 150px;
-      object-fit: cover;
+      height: auto;
       cursor: pointer;
       border: 2px solid white;
       border-radius: 8px;
@@ -74,6 +73,7 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .lightbox img {
@@ -104,20 +104,37 @@
       background: #e6b800;
     }
 
-    #startMusicBtn {
-      display: none;
+    #startMusicBtn, #muteBtn, #enBtn {
       position: fixed;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 18px;
-      background-color: #ffcc00;
+      padding: 10px 16px;
       border: none;
       border-radius: 8px;
       font-weight: bold;
       font-size: 1em;
       cursor: pointer;
-      z-index: 2000;
+      z-index: 3000;
+    }
+
+    #startMusicBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffcc00;
+      display: none;
+    }
+
+    #muteBtn {
+      left: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #enBtn {
+      right: 20px;
+      background-color: #ffcc00;
+      color: black;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }
   </style>
 </head>
@@ -130,13 +147,6 @@
     <a href="impressum.html">Impressum</a>
     <a href="galerie.html">Galerie</a>
   </nav>
-
-  <audio id="bgmusic" loop>
-    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
-    Dein Browser unterstützt keine Audio-Wiedergabe.
-  </audio>
-
-  <button id="startMusicBtn">🎵 Musik starten</button>
 
   <div class="gallery">
     <img src="bild1.png" alt="Bild 1" onclick="openLightbox(0)">
@@ -159,31 +169,41 @@
     </div>
   </div>
 
+  <audio id="bgmusic" loop>
+    <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="startMusicBtn">🎵 Musik starten</button>
+  <button id="muteBtn">🔇</button>
+  <button id="enBtn" onclick="location.href='galerie-en.html'">EN</button>
+
   <script>
-    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
-    const btn = document.getElementById("startMusicBtn");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteBtn");
 
     if (isMobile) {
-      btn.style.display = "block";
-      btn.addEventListener("click", () => {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
         audio.play();
-        btn.style.display = "none";
+        startBtn.style.display = "none";
       });
     } else {
       audio.autoplay = true;
       audio.play().catch(() => {});
     }
 
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? "🔈" : "🔇";
+    });
+
     const images = [
-      "bild1.png",
-      "bild2.jpeg",
-      "bild3.jpg",
-      "bild4.jpeg",
-      "bild5.jpeg",
-      "bild6.jpeg"
+      "bild1.png", "bild2.jpeg", "bild3.jpg",
+      "bild4.jpeg", "bild5.jpeg", "bild6.jpeg"
     ];
     let current = 0;
     let playing = true;
@@ -226,9 +246,7 @@
     }, 5000);
 
     document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") {
-        closeLightbox();
-      }
+      if (event.key === "Escape") closeLightbox();
     });
   </script>
 
