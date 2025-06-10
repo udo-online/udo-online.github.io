@@ -9,7 +9,7 @@
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
-      background: url("bonaire5.png") no-repeat center center fixed;
+      background: url("4.webp") no-repeat center center fixed;
       background-size: cover;
       background-attachment: fixed;
       color: white;
@@ -40,7 +40,7 @@
     }
 
     .content {
-      max-width: 800px;
+      max-width: 900px;
       margin: 120px auto 0;
       padding: 0 20px;
       font-size: 1.4em;
@@ -77,6 +77,12 @@
       right: 20px;
     }
 
+    a.mail {
+      color: #00ffff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
       nav a { margin: 0 10px; font-size: 1em; }
       .content { font-size: 1.1em; margin-top: 100px; }
@@ -94,16 +100,15 @@
   </nav>
 
   <div class="content">
-    <p>Ich freue mich sehr über Dein Interesse an meiner Webseite.<br>
-    Wenn Du Fragen oder Anregungen hast, zögere nicht, mir eine Nachricht zu senden.</p>
-    <p>Du erreichst mich ganz einfach per E-Mail:</p>
-    <p><strong>kontakt@udo-online.de</strong></p>
-    <p>Ich freue mich auf Deine Nachricht!</p>
+    <h1>Kontakt</h1>
+    <p>Du möchtest mir schreiben, ein Feedback geben oder einfach nur „Hallo“ sagen?</p>
+    <p>Dann schick mir eine Nachricht an:</p>
+    <p><a class="mail" href="mailto:kontakt@udo-online.de">kontakt@udo-online.de</a></p>
+    <p>Oder klopf dreimal auf Deinen Router und sag „Udo“ – vielleicht klappt's. 😊</p>
   </div>
 
   <audio id="bgmusic" loop>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
-    Dein Browser unterstützt keine Audio-Wiedergabe.
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
