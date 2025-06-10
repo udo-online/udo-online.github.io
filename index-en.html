@@ -50,26 +50,9 @@
       margin-bottom: 0.5em;
     }
 
-    #startMusicBtn {
-      display: none;
+    #startMusicBtn, #muteMusicBtn, #deBtn {
       position: fixed;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 18px;
-      background-color: #ffcc00;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1em;
-      cursor: pointer;
-      z-index: 2000;
-    }
-
-    #deBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
       padding: 10px 16px;
       background-color: #ffcc00;
       border: none;
@@ -80,6 +63,19 @@
       cursor: pointer;
       z-index: 2000;
       box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #startMusicBtn {
+      left: 20px;
+      display: none;
+    }
+
+    #muteMusicBtn {
+      left: 110px;
+    }
+
+    #deBtn {
+      right: 20px;
     }
 
     @media (max-width: 600px) {
@@ -94,9 +90,9 @@
   <nav>
     <a href="index-en.html">Home</a>
     <a href="ueber-mich-en.html">About Me</a>
-    <a href="kontakt.html">Contact</a>
-    <a href="impressum.html">Legal</a>
-    <a href="galerie.html">Gallery</a>
+    <a href="kontakt-en.html">Contact</a>
+    <a href="impressum-en.html">Legal Notice</a>
+    <a href="galerie-en.html">Gallery</a>
   </nav>
 
   <div class="content">
@@ -108,7 +104,8 @@
     Your browser does not support audio playback.
   </audio>
 
-  <button id="startMusicBtn">🎵 Start music</button>
+  <button id="startMusicBtn">🎵 Start Music</button>
+  <button id="muteMusicBtn">🔇 Mute</button>
   <button id="deBtn" onclick="location.href='index.html'">DE</button>
 
   <script>
@@ -116,18 +113,29 @@
       || (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document);
 
     const audio = document.getElementById("bgmusic");
-    const btn = document.getElementById("startMusicBtn");
+    const startBtn = document.getElementById("startMusicBtn");
+    const muteBtn = document.getElementById("muteMusicBtn");
 
     if (isMobile) {
-      btn.style.display = "block";
-      btn.addEventListener("click", () => {
+      startBtn.style.display = "block";
+      startBtn.addEventListener("click", () => {
         audio.play();
-        btn.style.display = "none";
+        startBtn.style.display = "none";
       });
     } else {
       audio.autoplay = true;
       audio.play().catch(() => {});
     }
+
+    muteBtn.addEventListener("click", () => {
+      if (audio.muted) {
+        audio.muted = false;
+        muteBtn.textContent = "🔇 Mute";
+      } else {
+        audio.muted = true;
+        muteBtn.textContent = "🔊 Unmute";
+      }
+    });
   </script>
 
 </body>
