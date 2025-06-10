@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Impressum</title>
+  <title>Imprint</title>
   <style>
     html, body {
       margin: 0;
@@ -13,14 +13,13 @@
       background-size: cover;
       background-attachment: fixed;
       color: white;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
     }
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.5);
       padding: 15px 0;
       text-align: center;
       z-index: 1000;
@@ -28,7 +27,7 @@
 
     nav a {
       color: white;
-      margin: 0 25px;
+      margin: 0 20px;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
@@ -40,15 +39,20 @@
     }
 
     .content {
-      padding-top: 120px;
-      text-align: center;
-      max-width: 800px;
-      margin: auto;
+      max-width: 900px;
+      margin: 140px auto 0;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      font-size: 1.3em;
       line-height: 1.8em;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
     }
 
     h1 {
-      font-size: 2.5em;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 20px;
       color: #ffcc00;
     }
 
@@ -63,7 +67,7 @@
       font-size: 1em;
       color: black;
       cursor: pointer;
-      z-index: 3000;
+      z-index: 2000;
       box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }
 
@@ -80,9 +84,15 @@
     #deBtn {
       right: 20px;
     }
+
+    @media (max-width: 600px) {
+      nav a { margin: 0 10px; font-size: 1em; }
+      .content { font-size: 1.05em; padding: 20px; margin-top: 100px; }
+    }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="index-en.html">Home</a>
     <a href="ueber-mich-en.html">About Me</a>
@@ -91,6 +101,20 @@
     <a href="galerie-en.html">Gallery</a>
   </nav>
 
+  <div class="content">
+    <h1>インプレッスム</h1>
+    <p>Site Manager: ウド・ミュラー株式会社</p>
+    <p>Address: 〒123-4567 Germany, Hamburg, Kartellstraße 1089F</p>
+    <p>Phone: ０８０ – ウド・デアーベスト</p>
+    <p>Email: udono.email@うそ.de</p>
+    <br>
+    <p>Business hours: Monday to Thursday (maybe)</p>
+    <p>If you have questions about the contents, please ask the duck directly.</p>
+    <br>
+    <p><strong>Disclaimer:</strong> This page has no legal meaning whatsoever.</p>
+    <p>This “インプレッスム” is not the Japanese translation of the German word “Impressum”.</p>
+  </div>
+
   <audio id="bgmusic" loop>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
   </audio>
@@ -98,20 +122,6 @@
   <button id="startMusicBtn">🎵 Start Music</button>
   <button id="muteBtn">🔇</button>
   <button id="deBtn" onclick="location.href='impressum.html'">DE</button>
-
-  <div class="content">
-    <h1>インプレスム</h1>
-    <p>管理責任者: ウド・ミュラー株式会社</p>
-    <p>所在地: 〒123-4567 ドイツ連邦共和国 ハンブルク市 カルテル通り1089階</p>
-    <p>電話番号: ０８０－ウド・デアーベスト</p>
-    <p>メール: udono.email@うそ.de</p>
-    <br>
-    <p>営業時間: 月曜日から木曜日まで（たぶん）</p>
-    <p>記載内容についてのご質問は、カモメに<strong>直接</strong>お伝えください。</p>
-    <br>
-    <p><strong>注意事項:</strong> このページは法的な意味をまったく持ちません。</p>
-    <p>この「インプレスム」は、インプレッサのドイツ語翻訳ではありません。</p>
-  </div>
 
   <script>
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
@@ -137,5 +147,6 @@
       muteBtn.textContent = audio.muted ? "🔈" : "🔇";
     });
   </script>
+
 </body>
 </html>
