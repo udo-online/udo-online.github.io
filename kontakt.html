@@ -4,21 +4,23 @@
   <meta charset="UTF-8">
   <title>Kontakt</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: Arial, sans-serif;
-      background: url("4.webp") no-repeat center center fixed;
+      background: url("bonaire5.png") no-repeat center center fixed;
       background-size: cover;
+      background-attachment: fixed;
       color: white;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
     }
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.5);
       padding: 15px 0;
       text-align: center;
       z-index: 1000;
@@ -26,7 +28,7 @@
 
     nav a {
       color: white;
-      margin: 0 25px;
+      margin: 0 20px;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
@@ -38,27 +40,17 @@
     }
 
     .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding-top: 100px;
+      max-width: 600px;
+      margin: auto;
       text-align: center;
-      padding: 80px 20px 0;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 1em;
-    }
-
-    a {
-      color: #66ffff;
-      font-weight: bold;
+      font-size: 1.3em;
+      line-height: 1.7em;
     }
 
     #startMusicBtn, #muteBtn, #enBtn {
       position: fixed;
+      bottom: 20px;
       padding: 10px 16px;
       background-color: #ffcc00;
       border: none;
@@ -72,25 +64,22 @@
     }
 
     #startMusicBtn {
-      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       display: none;
     }
 
     #muteBtn {
-      bottom: 20px;
       left: 20px;
     }
 
     #enBtn {
-      bottom: 20px;
       right: 20px;
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2em; }
       nav a { margin: 0 10px; font-size: 1em; }
+      .content { font-size: 1em; padding: 80px 20px 20px; }
     }
   </style>
 </head>
@@ -105,15 +94,14 @@
   </nav>
 
   <div class="content">
-    <h1>Kontakt</h1>
-    <p>Du möchtest mir schreiben, ein Feedback geben oder einfach nur „Hallo“ sagen?</p>
-    <p>Dann schick mir eine Nachricht an:</p>
-    <p><a href="mailto:news24.um@gmail.com">news24.um@gmail.com</a></p>
-    <p>Oder klopf dreimal auf Deinen Router und sag „Udo“ – vielleicht klappt’s. 😊</p>
+    <p>Wenn Du mir eine Nachricht senden möchtest,<br>kannst Du mich unter folgender Adresse erreichen:</p>
+    <p><strong>kontakt@udo-online.de</strong></p>
+    <p>Ich freue mich auf Deine Nachricht!</p>
   </div>
 
   <audio id="bgmusic" loop>
     <source src="Traumreise_komprimiert.mp3" type="audio/mpeg">
+    Dein Browser unterstützt keine Audio-Wiedergabe.
   </audio>
 
   <button id="startMusicBtn">🎵 Musik starten</button>
